@@ -24,5 +24,6 @@ class InitModule extends \yii\base\Module
         \Yii::configure($this, require __DIR__ . '/config.php');
         // custom initialization code goes here
         Yii::$app->params = array_merge($this->params, Yii::$app->params);
+        Yii::setAlias('@fronted_assets', dirname(dirname(__DIR__)) . '/modules/fronted/assets');
     }
 }

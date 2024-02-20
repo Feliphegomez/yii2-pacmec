@@ -4,19 +4,29 @@
 
 use yii\bootstrap5\Html;
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = $this->title;
-?>
+$page_metas = [];
+foreach ($model->pageMetas as $i => $meta) {
+    $page_metas[$meta->slug] = $meta;
+}
 
+$this->title = $model->title;
+if  (isset($page_metas['breadcrumbs']) && $page_metas['breadcrumbs'] !== false) {
+    switch ($page_metas['breadcrumbs']) {
+        default:
+            $this->params['breadcrumbs'][] = $this->title;
+            break;
+    }
+}
+?>
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <script src="https://unpkg.com/grapesjs"></script>
 <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
 <script src="https://unpkg.com/grapesjs-preset-newsletter"></script>
 
 <div class="site-page h-100">
-    <div class="container">
+    <!-- <div class="container">
         <h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    </div> -->
     <?= $model->content ?>
     <!-- <div id="gjs" style="height:0px; overflow:hidden">
         <div class="panel">

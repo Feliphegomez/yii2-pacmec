@@ -34,6 +34,10 @@ return [
                     'url' => ['/system/default/index'],
                 ],
                 [
+                    'label' => '<i class="bi bi-card-heading fs-1"></i>',
+                    'url' => ['/system/pages/index'],
+                ],
+                [
                     'label' => '<i class="bi bi-people fs-1"></i>',
                     'url' => ['/system/users/index'],
                 ],
