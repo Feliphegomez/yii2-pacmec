@@ -8,48 +8,61 @@
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
-$this->title = 'Login';
+$this->title = 'Inicio de sesion';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- <form>
+        <img class="mb-4 mx-auto d-block" src="<?= Yii::getAlias('@web/images/logos/Logo-header.png') ?>" alt="" height="57">
+        <h1 class="h3 mb-3 fw-normal text-center"><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-
-            <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
-                'fieldConfig' => [
-                    'template' => "{label}\n{input}\n{error}",
-                    'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-                    'inputOptions' => ['class' => 'col-lg-3 form-control'],
-                    'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-                ],
-            ]); ?>
-
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-            <?= $form->field($model, 'password')->passwordInput() ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox([
-                'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
-
-            <div class="form-group">
-                <div>
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-            </div>
-
-            <?php ActiveForm::end(); ?>
-
-            <div style="color:#999;">
-                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-            </div>
-
+        <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
         </div>
-    </div>
+        <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+        </div>
+
+        <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+            Remember me
+        </label>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+    </form> -->
+    <?php $form = ActiveForm::begin([
+        'id' => 'login-form',
+        'fieldConfig' => [
+            'template' => "<div class=\"form-floating\">{input}\n{label}\n{error}</div>",
+            'labelOptions' => ['class' => ''],
+            'inputOptions' => ['class' => 'form-control'],
+            'errorOptions' => ['class' => 'col-lg-12 invalid-feedback'],
+        ],
+    ]); ?>
+        <img class="mb-4 mx-auto d-block" src="<?= Yii::getAlias('@web/images/logos/Logo-header.png') ?>" alt="" height="57">
+        <h1 class="h3 mb-3 fw-normal text-center"><?= Html::encode($this->title) ?></h1>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => ' ']) ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder' => ' ']) ?>
+        <?= $form->field($model, 'rememberMe')->checkbox([
+            'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+        ]) ?>
+
+        <div class="form-group">
+            <div>
+                <?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary w-100 py-2', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+
+        <div class="my-1 mx-0" style="color:#999; zoom:0.8;">
+            Si olvidó su contraseña, puede <?= Html::a('restablecerla', ['site/request-password-reset']) ?>.
+            <br>
+            ¿Necesita un nuevo correo electrónico de verificación? <?= Html::a('Reenviar', ['site/resend-verification-email']) ?>
+        </div>
+
+        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+    <?php ActiveForm::end(); ?>
 </div>

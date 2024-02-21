@@ -22,8 +22,8 @@ use yii\helpers\Url;
                             <!-- <button type="button" class="btn btn-primary">Follow</button>
                             <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
                             <?php if (Yii::$app->user->can('admin')) : ?>
-                                <?= Html::a('Editar', ['/users/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a('Eliminar', ['/users/delete', 'id' => $model->id], [
+                                <?= Html::a('Editar', ['/system/users/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a('Eliminar', ['/system/users/delete', 'id' => $model->id], [
                                     'class' => 'btn btn-outline-danger ms-1',
                                     'data' => [
                                         'confirm' => '¿Estás seguro de que quieres eliminar este artículo?',
@@ -32,7 +32,7 @@ use yii\helpers\Url;
                                 ]) ?>
                             <?php endif ?>
                             <?php if (Yii::$app->user->identity->id == $model->id) : ?>
-                                <a href="<?= Url::toRoute(['/site/settings']) ?>" class="btn btn-secondary ms-1">Actualizar</a>
+                                <a href="<?= Url::toRoute(['/my-account']) ?>" class="btn btn-secondary ms-1">Actualizar</a>
                             <?php endif ?>
                             
                         </div>

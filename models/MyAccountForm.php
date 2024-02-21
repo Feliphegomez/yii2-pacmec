@@ -1,36 +1,44 @@
 <?php
-
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
+use Yii;
 
 /**
- * LoginForm is the model behind the login form.
- *
- * @property-read User|null $user
- *
+ * Signup form
  */
-class LoginForm extends Model
+class MyAccountForm extends Model
 {
     public $username;
+    public $email;
     public $password;
-    public $rememberMe = true;
 
+    private $_userBase = "";
     private $_user = false;
 
+    public function __construct() {
+        parent::__construct();
+        $this->_userBase = Yii::$app->user->identity->username;
+        $this->username = Yii::$app->user->identity->username;
+        $this->email = Yii::$app->user->identity->email;
+    }
 
     /**
-     * @return array the validation rules.
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'required'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+
+            ['password', 'required'],
+            ['password', 'string', 'min' => 6],
             ['password', 'validatePassword'],
         ];
     }
@@ -44,7 +52,6 @@ class LoginForm extends Model
             'username' => 'Usuario',
             'email' => 'Correo electronico',
             'password' => 'Contraseña',
-            'rememberMe' => 'Dispositivo de confianza',
         ];
     }
 
@@ -61,20 +68,24 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Nombre de usuario o contraseña incorrecta.');
+                $this->addError($attribute, 'Incorrect username or password.');
             }
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
+     * Signs user up.
+     *
+     * @return User|null the saved model or null if saving fails
      */
-    public function login()
+    public function save1()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            $this->_user->username = $this->username;
+            $this->_user->email = $this->email;
+            return $this->_user->save(false);
         }
+    
         return false;
     }
 
@@ -86,7 +97,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername($this->_userBase);
         }
 
         return $this->_user;

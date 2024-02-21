@@ -10,8 +10,9 @@ use yii\helpers\Url;
 
 $this->title = "@{$model->username} - Usuario # {$model->id}";
 
-if (Yii::$app->user->can('admin')) $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
-if (Yii::$app->user->identity->id == $model->id) $this->params['breadcrumbs'][] = ['label' => 'Mi perfil', 'url' => ['profile']];
+$this->params['breadcrumbs'][] = ['label' => 'System', 'url' => ['/system/default/index']];
+if (Yii::$app->user->can('admin')) $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['/system/users/index']];
+// if (Yii::$app->user->identity->id == $model->id) $this->params['breadcrumbs'][] = ['label' => 'Mi perfil', 'url' => ['profile']];
 
 // $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,5 +28,4 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]) ?>
 </div>
-
 

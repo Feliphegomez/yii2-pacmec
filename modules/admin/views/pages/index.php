@@ -1,24 +1,26 @@
 <?php
 
-use app\modules\system\models\User;
+use app\modules\system\models\Page;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\modules\system\models\UserSearch $searchModel */
+/** @var app\modules\system\models\PageSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Usuarios';
-$this->params['breadcrumbs'][] = ['label' => 'System', 'url' => ['/system/default/index']];
+$this->title = 'Pages';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="page-index">
+
     <h1><?= Html::encode($this->title) ?></h1>
+
     <p>
-        <?= Html::a('Nuevo usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Page', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -28,18 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
+            'parent_id',
+            'title',
+            'slug',
+            // 'content:ntext',
+            //'visible:ntext',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, User $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Page $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

@@ -90,14 +90,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
 REPLACE INTO `migration` (`version`, `apply_time`) VALUES
 	('m000000_000000_base', 1706890911),
-	('m130524_201442_init', 1706890915),
-	('m190124_110200_add_verification_token_column_to_user_table', 1706890915),
-	('m240116_222102_type_parking', 1706890915),
-	('m240116_222105_movements', 1706890915),
-	('m140506_102106_rbac_init', 1706891004),
-	('m170907_052038_rbac_add_index_on_auth_assignment_user_id', 1706891004),
-	('m180523_151638_rbac_updates_indexes_without_prefix', 1706891004),
-	('m200409_110543_rbac_update_mssql_trigger', 1706891004);
+	('m240101_000000_init', 1706890915);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 
 -- Volcando estructura para tabla yii2basic.user
